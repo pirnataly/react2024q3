@@ -5,10 +5,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "npx eslint . --ext .tsx",
     "preview": "vite preview",
     "format:fix": "prettier -w .",
-    "prepare": "cd .husky",
+    "prepare": "cd .. && husky my-react-app/.husky",
     "precommit": "lint-staged"
   },
   "dependencies": {
