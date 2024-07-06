@@ -2,13 +2,14 @@
   "name": "my-react-app",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "npx eslint . --ext .tsx",
     "preview": "vite preview",
     "format:fix": "prettier -w .",
-    "prepare": "cd .. && husky my-react-app/.husky",
+    "prepare": "cd .husky",
     "precommit": "lint-staged"
   },
   "dependencies": {
