@@ -10,15 +10,12 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs',"!.prettierrc.js"],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '!.prettierrc.js'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler'],
   rules: {
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
 };

@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "tsc -b && vite build",
-    "lint": "npx eslint . --ext .tsx",
+    "lint": "npx eslint . --ext .tsx,.ts",
     "preview": "vite preview",
     "format:fix": "prettier -w .",
     "prepare": "cd .husky",
