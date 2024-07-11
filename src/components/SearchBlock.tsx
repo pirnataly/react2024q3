@@ -1,33 +1,22 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
+import { MyProps, MyState } from '../interfaces/types';
 
-class SearchBlock extends React.Component<{ text: string }, ReactNode> {
-  constructor(props) {
+class SearchBlock extends React.Component<MyProps, MyState> {
+  constructor(props: MyProps) {
     super(props);
-    this.state = {
-      text: localStorage.getItem('text') ? localStorage.getItem('text') : '',
-    };
-    this.fetchData = this.fetchData.bind(this);
-  }
-
-  handleChangeInput = (e) => {
-    this.setState({
-      text: e.target.value,
-    });
-  };
-
-  fetchData() {
-    localStorage.setItem('text', this.state.text.trim());
-    console.log('fetchData', this.state.text);
   }
 
   render() {
+    const { buttonName, text, handleChangeInput, setLocalStorage } = this.props;
     return (
-      <div className="search-container">
-        <input className="input" value={this.state.text} onChange={this.handleChangeInput} />
-        <button className="search-button" onClick={this.fetchData}>
-          Search
-        </button>
-      </div>
+      <>
+        <div className="search-container">
+          <input className="input" value={text} onChange={handleChangeInput} />
+          <button className="search-button" onClick={setLocalStorage}>
+            {buttonName}
+          </button>
+        </div>
+      </>
     );
   }
 }
