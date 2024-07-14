@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import '../styles/App.css';
-import { Photo, ResultBlockState, ResultsProps, SuccessFetchAnswer } from '../interfaces/types';
-import Cards from './Cards';
+import { Photo, ResultBlockState, ResultsProps, SuccessFetchAnswer } from '../interfaces/types.tsx';
+import Cards from './Cards.tsx';
+import App from '../App.tsx';
 
-export default class ResultBlock extends React.Component<ResultsProps, ResultBlockState> {
-  constructor(props: ResultsProps) {
+export default class ResultBlock extends React.Component<
+  ResultsProps & App,
+  ResultBlockState & ResultBlock
+> {
+  constructor(props: ResultsProps & App) {
     super(props);
   }
 
-  render() {
+  render(): ReactNode {
     const headingText = localStorage.getItem('text') ? localStorage.getItem('text') : '';
     const nameOfClass = this.props.state.config === null ? 'spinner' : 'results-container';
 

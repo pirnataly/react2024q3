@@ -1,7 +1,9 @@
 import { SuccessFetchAnswer } from '../interfaces/types';
 
 let counter = 0;
-export default async function fetchResults(inputText: string): Promise<SuccessFetchAnswer | 'bad'> {
+export default async function fetchResults(
+  inputText: string | null,
+): Promise<SuccessFetchAnswer | 'bad' | undefined> {
   if (inputText) {
     try {
       const result = await fetch(
@@ -12,14 +14,17 @@ export default async function fetchResults(inputText: string): Promise<SuccessFe
         counter = 0;
         return answer;
       } else return 'bad';
-    } catch (error) {
-      if (error.name === 'TypeError') {
-        if (counter < 3) {
-          counter += 1;
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          return fetchResults(inputText);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        if (error.name === 'TypeError') {
+          if (counter < 3) {
+            counter += 1;
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            return fetchResults(inputText);
+          }
         }
       }
     }
+    return;
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import SearchBlock from './components/SearchBlock';
+import SearchBlock from './components/SearchBlock.tsx';
 import '../src/styles/App.css';
-import { MyProps, MyState } from './interfaces/types';
-import ResultBlock from './components/ResultBlock';
-import fetchResults from './service/request';
+import { MyState } from './interfaces/types.tsx';
+import ResultBlock from './components/ResultBlock.tsx';
+import fetchResults from './service/request.tsx';
 
-class App extends React.Component<MyProps, Partial<MyState>> {
-  constructor(props: MyProps) {
+class App extends React.Component<unknown, Partial<MyState>> {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       text: String(localStorage.getItem('text') ? localStorage.getItem('text') : ''),
@@ -61,8 +61,8 @@ class App extends React.Component<MyProps, Partial<MyState>> {
     return (
       <>
         <div className="App">
-          <SearchBlock buttonName="Search" text={this.state.text} {...this} />
-          <ResultBlock text={this.state.heading} {...this} />
+          <SearchBlock buttonName="Search" text={this.state.text!} {...this} />
+          <ResultBlock text={this.state.heading!} {...this} />
         </div>
       </>
     );

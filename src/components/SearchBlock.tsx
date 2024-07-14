@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyProps, MyState } from '../interfaces/types';
+import { MyProps, MyState } from '../interfaces/types.tsx';
 
 class SearchBlock extends React.Component<MyProps, MyState> {
   constructor(props: MyProps) {

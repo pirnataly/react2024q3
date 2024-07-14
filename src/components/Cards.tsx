@@ -1,8 +1,9 @@
 import React from 'react';
-import { CardsProps, Photo } from '../interfaces/types';
+import { CardProps, Photo } from '../interfaces/types.tsx';
+import ResultBlock from './ResultBlock';
 
-export default class Cards extends React.Component<CardsProps, Photo> {
-  constructor(props: CardsProps) {
+export default class Cards extends React.Component<CardProps & ResultBlock, unknown> {
+  constructor(props: CardProps & ResultBlock) {
     super(props);
   }
 
@@ -14,7 +15,11 @@ export default class Cards extends React.Component<CardsProps, Photo> {
         {photos.map((post) => (
           <div className="results-card" key={post.id}>
             <div className="results-card__image">
-              <img src={post.url_l} className="results-card__image" alt={headingText}></img>
+              <img
+                src={post.url_l}
+                className="results-card__image"
+                alt={headingText ?? 'photo'}
+              ></img>
             </div>
             <h5 className="card-description">{post.title}</h5>
           </div>

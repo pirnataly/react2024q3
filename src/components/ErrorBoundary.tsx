@@ -1,20 +1,20 @@
-import React from 'react';
-import { FallBack } from '../interfaces/types';
+import React, { ReactNode } from 'react';
+import { ErrorBoundaryProps, ErrorBoundaryState } from '../interfaces/types';
 
-export default class ErrorBoundary extends React.Component<FallBack, { hasError: boolean }> {
-  constructor(props: FallBack) {
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError() {
+  static getDerivedStateFromError(error: Error): { hasError: boolean } {
+    console.error(error);
     return { hasError: true };
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
-      console.log(this.props.fallback.children);
-      return this.props.fallback;
+      return <p className="results-heading">Something went wrong</p>;
     }
     return this.props.children;
   }
