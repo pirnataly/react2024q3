@@ -23,6 +23,7 @@ export default async function fetchResults(
             return fetchResults(inputText);
           }
         }
+        return 'bad';
       }
     }
     return;
