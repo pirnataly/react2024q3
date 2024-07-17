@@ -1,7 +1,7 @@
 import React from 'react';
-import { MyProps, MyState } from '../interfaces/types.tsx';
+import { MyProps } from '../interfaces/types.tsx';
 
-class SearchBlock extends React.Component<MyProps, MyState> {
+class SearchBlock extends React.Component<MyProps, unknown> {
   constructor(props: MyProps) {
     super(props);
   }
@@ -9,14 +9,12 @@ class SearchBlock extends React.Component<MyProps, MyState> {
   render() {
     const { buttonName, text, handleChangeInput, setLocalStorage } = this.props;
     return (
-      <>
-        <div className="search-container">
-          <input className="input" value={text} onChange={handleChangeInput} />
-          <button className="search-button" onClick={setLocalStorage}>
-            {buttonName}
-          </button>
-        </div>
-      </>
+      <div className="search-container">
+        <input className="input" value={text} onChange={handleChangeInput} />
+        <button className="search-button" onClick={setLocalStorage}>
+          {buttonName}
+        </button>
+      </div>
     );
   }
 }

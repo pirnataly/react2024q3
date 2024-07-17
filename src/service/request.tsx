@@ -11,9 +11,11 @@ export default async function fetchResults(
       );
       if (result.ok) {
         const answer = await result.json();
+
         counter = 0;
         return answer;
-      } else return 'bad';
+      }
+      return 'bad';
     } catch (error: unknown) {
       if (error instanceof Error) {
         if (error.name === 'TypeError') {
@@ -26,6 +28,6 @@ export default async function fetchResults(
         return 'bad';
       }
     }
-    return;
   }
+  return 'bad';
 }
