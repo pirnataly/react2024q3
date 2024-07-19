@@ -28,10 +28,11 @@ export type MyState = {
   config: null | SuccessFetchAnswer | 'bad';
 };
 
-export type ResultBlockState = { photos: Photo[]; headingText: string | null };
+export type ResultBlockState = object;
 
 export type ResultsProps = {
-  text: string;
+  textProp: string;
+  result: null | SuccessFetchAnswer | 'bad';
 };
 
 export type Photos = {

@@ -1,17 +1,18 @@
 import React from 'react';
-import { MyProps } from '../interfaces/types.tsx';
+import { MyProps } from '../interfaces/types';
 
 class SearchBlock extends React.Component<MyProps, unknown> {
   constructor(props: MyProps) {
     super(props);
+    this.state = {};
   }
 
   render() {
-    const { buttonName, text, handleChangeInput, setLocalStorage } = this.props;
+    const { buttonName, textProp, handleChangeInput, setLocalStorage } = this.props;
     return (
       <div className="search-container">
-        <input className="input" value={text} onChange={handleChangeInput} />
-        <button className="search-button" onClick={setLocalStorage}>
+        <input className="input" value={textProp} onChange={handleChangeInput} />
+        <button className="search-button" onClick={setLocalStorage} type="button">
           {buttonName}
         </button>
       </div>

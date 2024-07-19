@@ -1,40 +1,34 @@
 import React, { ReactNode } from 'react';
 import '../styles/App.css';
-import { Photo, ResultBlockState, ResultsProps, SuccessFetchAnswer } from '../interfaces/types.tsx';
-import Cards from './Cards.tsx';
-import App from '../App.tsx';
+import { Photo, ResultBlockState, ResultsProps, SuccessFetchAnswer } from '../interfaces/types';
+import Cards from './Cards';
 
-export default class ResultBlock extends React.Component<
-  ResultsProps & App,
-  ResultBlockState & ResultBlock
-> {
-  constructor(props: ResultsProps & App) {
+export default class ResultBlock extends React.Component<ResultsProps, ResultBlockState> {
+  constructor(props: ResultsProps) {
     super(props);
+    this.state = {};
   }
 
   render(): ReactNode {
+    const { result } = this.props;
     const headingText = localStorage.getItem('text') ? localStorage.getItem('text') : '';
-    const nameOfClass = this.props.state.config === null ? 'spinner' : 'results-container';
+    const nameOfClass = result === null ? 'spinner' : 'results-container';
 
     const photos: Photo[] | undefined =
-      this.props.state.config === null
-        ? []
-        : (this.props.state.config as SuccessFetchAnswer)?.photos.photo;
+      result === null ? [] : (result as SuccessFetchAnswer)?.photos.photo;
 
-    if (this.props.state.config === null) {
+    if (result === null) {
       return <div className={nameOfClass} />;
     }
 
-    if (this.props.state.config !== 'bad' && localStorage.getItem('text')) {
+    if (result !== 'bad' && localStorage.getItem('text')) {
       return (
         <div className={nameOfClass}>
           <h1 className="results-heading">
-            {this.props.state.config === undefined
-              ? 'Nothing was '
-              : `${this.props.state.config.photos.total} results were `}
+            {result === undefined ? 'Nothing was ' : `${result.photos.total} results were `}
             found for request <i>{headingText}</i>
           </h1>
-          <Cards photos={photos ?? []} headingText={headingText} {...this} />
+          <Cards photos={photos ?? []} headingText={headingText} />
         </div>
       );
     }

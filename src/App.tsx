@@ -1,15 +1,15 @@
 import React from 'react';
 import SearchBlock from './components/SearchBlock';
-import '../src/styles/App.css';
-import { MyState } from './interfaces/types.tsx';
-import ResultBlock from './components/ResultBlock.tsx';
-import fetchResults from './service/request.tsx';
+import './styles/App.css';
+import { MyState } from './interfaces/types';
+import ResultBlock from './components/ResultBlock';
+import fetchResults from './service/request';
 
 class App extends React.Component<unknown, Partial<MyState>> {
   constructor(props: unknown) {
     super(props);
     this.state = {
-      text: String(localStorage.getItem('text') ? localStorage.getItem('text') : ''),
+      text: String(localStorage.getItem('text') ? localStorage.getItem('text') : '123'),
       heading: String(localStorage.getItem('text') ? localStorage.getItem('text') : ''),
       config: null,
     };
@@ -34,8 +34,9 @@ class App extends React.Component<unknown, Partial<MyState>> {
   };
 
   setLocalStorage(): void {
-    if (this.state.text) {
-      localStorage.setItem('text', this.state.text.trim());
+    const { text } = this.state;
+    if (text) {
+      localStorage.setItem('text', text.trim());
     } else {
       localStorage.removeItem('text');
     }
@@ -58,19 +59,17 @@ class App extends React.Component<unknown, Partial<MyState>> {
   }
 
   render() {
+    const { config, text, heading } = this.state;
     return (
-      <>
-        <div className="App">
-          <h1>Hello World!</h1>
-          <SearchBlock
-            buttonName="Search"
-            text={this.state.text!}
-            handleChangeInput={this.handleChangeInput}
-            setLocalStorage={this.setLocalStorage}
-          />
-          <ResultBlock text={this.state.heading!} {...this} />
-        </div>
-      </>
+      <div className="App">
+        <SearchBlock
+          buttonName="Search"
+          textProp={text!}
+          handleChangeInput={this.handleChangeInput}
+          setLocalStorage={this.setLocalStorage}
+        />
+        <ResultBlock textProp={heading!} result={config!} />
+      </div>
     );
   }
 }

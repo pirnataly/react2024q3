@@ -13,9 +13,11 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
   }
 
   render(): ReactNode {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       return <p className="results-heading">Something went wrong</p>;
     }
-    return this.props.children;
+    return children;
   }
 }

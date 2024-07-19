@@ -21,7 +21,6 @@ export default async function fetchResults(
         if (error.name === 'TypeError') {
           if (counter < 3) {
             counter += 1;
-            await new Promise((resolve) => setTimeout(resolve, 1000));
             return fetchResults(inputText);
           }
         }

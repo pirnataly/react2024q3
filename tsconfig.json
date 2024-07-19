@@ -14,15 +14,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+
     "forceConsistentCasingInFileNames": true,
 
     /* Linting */
     "strict": true,
-    "allowSyntheticDefaultImports": true
-    //        "baseUrl": "src",
-    //        "paths": {
-    //          "@components/*": ["components/*"]
-    //        }
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"]
+    }
   },
   "include": ["vite.config.ts", ".eslintrc.cjs", "src"],
   "references": [{ "path": "tsconfig.node.json" }]

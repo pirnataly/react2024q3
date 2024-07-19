@@ -1,17 +1,16 @@
 import React from 'react';
-import ResultBlock from '@components/ResultBlock';
-import { CardProps, Photo } from '../interfaces/types.tsx';
+import { CardProps, Photo } from '../interfaces/types';
 
 export default class Cards extends React.Component<CardProps, unknown> {
   static photos: Photo[] | [];
 
-  constructor(props: CardProps & ResultBlock) {
+  constructor(props: CardProps) {
     super(props);
-    Cards.photos = this.props.photos;
+    Cards.photos = props.photos;
   }
 
   render() {
-    const { headingText } = this.props.headingText;
+    const { headingText } = this.props;
     return (
       <div className="cards-container">
         {Cards.photos.map((post) => (
