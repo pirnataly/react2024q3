@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-export type MyProps = {
+export type SearchProps = {
   buttonName: string;
   textProp: string;
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
