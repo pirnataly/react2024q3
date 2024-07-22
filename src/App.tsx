@@ -4,14 +4,11 @@ import './styles/App.css';
 import { SuccessFetchAnswer } from './interfaces/types';
 import ResultBlock from './components/ResultBlock';
 import fetchResults from './service/request';
+import localStorageGetTextOrSetEmptyString from './service/localStorage';
 
 export default function App() {
-  const [text, setText] = useState(
-    localStorage.getItem('text') ? localStorage.getItem('text') : '',
-  );
-  const [heading, setHeading] = useState(
-    localStorage.getItem('text') ? localStorage.getItem('text') : '',
-  );
+  const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
+  const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
 
   function fetchData(isMounted: boolean) {

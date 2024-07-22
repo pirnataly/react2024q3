@@ -2,10 +2,10 @@ import React from 'react';
 import '../styles/App.css';
 import { Photo, ResultsProps, SuccessFetchAnswer } from '../interfaces/types';
 import Cards from './Cards';
+import localStorageGetTextOrSetEmptyString from '../service/localStorage';
 
-export default function ResultBlock(props: ResultsProps) {
-  const { result } = props;
-  const headingText = localStorage.getItem('text') ? localStorage.getItem('text') : '';
+export default function ResultBlock({ result }: ResultsProps) {
+  const headingText = localStorageGetTextOrSetEmptyString();
   const nameOfClass = result === null ? 'spinner' : 'results-container';
   const photos: Photo[] | undefined =
     result === null ? [] : (result as SuccessFetchAnswer)?.photos.photo;
