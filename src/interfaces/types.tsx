@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 export type MyProps = {
   buttonName: string;
-  text: string;
+  textProp: string;
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setLocalStorage: () => void;
 };
@@ -22,17 +22,9 @@ export type Photo = {
   width_l: number;
 };
 
-export type MyState = {
-  text: string;
-  heading: string;
-  config: null | SuccessFetchAnswer | 'bad';
-};
-
-export type ResultBlockState = object;
-
 export type ResultsProps = {
   textProp: string;
-  result: null | SuccessFetchAnswer | 'bad';
+  result: null | SuccessFetchAnswer | 'bad' | undefined;
 };
 
 export type Photos = {
