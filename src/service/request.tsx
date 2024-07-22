@@ -11,7 +11,6 @@ export default async function fetchResults(
       );
       if (result.ok) {
         const answer = await result.json();
-
         counter = 0;
         return answer;
       }
