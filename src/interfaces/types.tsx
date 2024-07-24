@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 export type SearchProps = {
   buttonName: string;
   textProp: string;
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setLocalStorage: () => void;
+  setLocalStorage: (e: React.FormEvent) => void;
 };
 
 export type Photo = {
@@ -47,4 +47,14 @@ export type ErrorBoundaryProps = { children?: ReactNode };
 export type CardProps = {
   photos: Photo[];
   headingText: string | null;
+};
+
+export type InputProps = {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export type ButtonProps = {
+  onClick: (e: React.FormEvent) => void;
+  children: string;
 };

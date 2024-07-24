@@ -1,4 +1,6 @@
 import React from 'react';
+import SearchButton from '@components/UI/button/SearchButton';
+import SearchInput from '@components/UI/input/SearchInput';
 import { SearchProps } from '../interfaces/types';
 
 export default function SearchBlock({
@@ -8,11 +10,9 @@ export default function SearchBlock({
   setLocalStorage,
 }: SearchProps) {
   return (
-    <div className="search-container">
-      <input className="input" value={textProp} onChange={handleChangeInput} />
-      <button className="search-button" onClick={setLocalStorage} type="button">
-        {buttonName}
-      </button>
-    </div>
+    <form className="search-container">
+      <SearchInput value={textProp} onChange={handleChangeInput} />
+      <SearchButton onClick={setLocalStorage}>{buttonName}</SearchButton>
+    </form>
   );
 }

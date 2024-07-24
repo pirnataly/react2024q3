@@ -39,14 +39,18 @@ export default function App() {
     [setText],
   );
 
-  const setLocalStorage = useCallback(() => {
-    if (text) {
-      localStorage.setItem('text', text.trim());
-    } else {
-      localStorage.removeItem('text');
-    }
-    setHeading(localStorage.getItem('text'));
-  }, [text, setHeading]);
+  const setLocalStorage = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      if (text) {
+        localStorage.setItem('text', text.trim());
+      } else {
+        localStorage.removeItem('text');
+      }
+      setHeading(localStorage.getItem('text'));
+    },
+    [text],
+  );
 
   return (
     <div className="App">
