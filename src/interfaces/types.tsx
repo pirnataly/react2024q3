@@ -25,6 +25,7 @@ export type Photo = {
 export type ResultsProps = {
   textProp: string;
   result: null | SuccessFetchAnswer | 'bad' | undefined;
+  isPhotoLoading: true | false;
 };
 
 export type Photos = {
@@ -57,4 +58,9 @@ export type InputProps = {
 export type ButtonProps = {
   onClick: (e: React.FormEvent) => void;
   children: string;
+};
+
+export type ResultsType = {
+  photos: [] | Photo[];
+  headingText: string | null;
 };

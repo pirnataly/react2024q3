@@ -3,21 +3,23 @@ import SearchBlock from './components/SearchBlock';
 import './styles/App.css';
 import { SuccessFetchAnswer } from './interfaces/types';
 import ResultBlock from './components/ResultBlock';
-import fetchResults from './service/request';
+import PhotoService from './API/PhotoService';
 import localStorageGetTextOrSetEmptyString from './service/localStorage';
 
 export default function App() {
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
+  const [isPhotosLoading, setIsPhotosLoading] = useState(false);
 
   function fetchData(isMounted: boolean) {
     const fetchArg = localStorage.getItem('text') ? localStorage.getItem('text') : 'photo';
-    setConfig(null);
-    fetchResults(fetchArg).then((data) => {
+    setIsPhotosLoading(true);
+    PhotoService.fetchResults(fetchArg).then((data) => {
       if (isMounted) {
         setConfig(data);
       }
+      setIsPhotosLoading(false);
     });
   }
 
@@ -60,7 +62,7 @@ export default function App() {
         handleChangeInput={handleChangeInput}
         setLocalStorage={setLocalStorage}
       />
-      <ResultBlock textProp={heading!} result={config!} />
+      <ResultBlock textProp={heading!} result={config!} isPhotoLoading={isPhotosLoading} />
     </div>
   );
 }
