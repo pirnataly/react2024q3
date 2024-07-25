@@ -25,7 +25,7 @@ export type Photo = {
 export type ResultsProps = {
   textProp: string;
   result: null | SuccessFetchAnswer | 'bad' | undefined;
-  isPhotoLoading: true | false;
+  isPhotoLoading: boolean;
 };
 
 export type Photos = {
@@ -63,4 +63,5 @@ export type ButtonProps = {
 export type ResultsType = {
   photos: [] | Photo[];
   headingText: string | null;
+  total: number;
 };

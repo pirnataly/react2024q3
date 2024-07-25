@@ -5,30 +5,19 @@ import { SuccessFetchAnswer } from './interfaces/types';
 import ResultBlock from './components/ResultBlock';
 import PhotoService from './API/PhotoService';
 import localStorageGetTextOrSetEmptyString from './service/localStorage';
+import useFetching from './hooks/useFetching';
 
 export default function App() {
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
-  const [isPhotosLoading, setIsPhotosLoading] = useState(false);
-
-  function fetchData(isMounted: boolean) {
+  const [fetchData, isPhotosLoading, errorMessage] = useFetching(async () => {
     const fetchArg = localStorage.getItem('text') ? localStorage.getItem('text') : 'photo';
-    setIsPhotosLoading(true);
-    PhotoService.fetchResults(fetchArg).then((data) => {
-      if (isMounted) {
-        setConfig(data);
-      }
-      setIsPhotosLoading(false);
-    });
-  }
+    setConfig(await PhotoService.fetchResults(fetchArg));
+  });
 
   useEffect(() => {
-    let mounted = true;
-    fetchData(mounted);
-    return () => {
-      mounted = false;
-    };
+    fetchData();
   }, [heading]);
 
   const handleChangeInput = useCallback(
@@ -53,7 +42,6 @@ export default function App() {
     },
     [text],
   );
-
   return (
     <div className="App">
       <SearchBlock
@@ -62,7 +50,11 @@ export default function App() {
         handleChangeInput={handleChangeInput}
         setLocalStorage={setLocalStorage}
       />
-      <ResultBlock textProp={heading!} result={config!} isPhotoLoading={isPhotosLoading} />
+      {errorMessage ? (
+        <h1 className="error-message">{errorMessage}</h1>
+      ) : (
+        <ResultBlock textProp={heading!} result={config!} isPhotoLoading={isPhotosLoading} />
+      )}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, E
     const { hasError } = this.state;
     const { children } = this.props;
     if (hasError) {
-      return <p className="results-heading">Something went wrong</p>;
+      return <p className="results-heading">{Error.name ? Error.name : 'Something went wrong'}</p>;
     }
     return children;
   }

@@ -8,9 +8,10 @@ import localStorageGetTextOrSetEmptyString from '../service/localStorage';
 export default function ResultBlock({ result, isPhotoLoading }: ResultsProps) {
   const resultFromRequest = result ?? 'bad';
   const photos: [] | Photo[] = resultFromRequest === 'bad' ? [] : resultFromRequest.photos.photo;
+  const total = resultFromRequest === 'bad' ? 0 : resultFromRequest.photos.total;
   return isPhotoLoading ? (
     <Loader />
   ) : (
-    <Results photos={photos} headingText={localStorageGetTextOrSetEmptyString()} />
+    <Results photos={photos} headingText={localStorageGetTextOrSetEmptyString()} total={total} />
   );
 }

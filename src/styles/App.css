@@ -79,3 +79,7 @@
   padding: 10px 5px;
   overflow: hidden;
 }
+
+.error-message {
+  margin-top: 30vh;
+}

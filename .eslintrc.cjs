@@ -21,5 +21,6 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     'no-console': 0,
+    'react-hooks/exhaustive-deps': 0,
   },
 };
