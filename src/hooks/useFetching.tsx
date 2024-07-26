@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import { NumberPair } from '../interfaces/types';
 
 export default function useFetching(
-  callback: () => Promise<void>,
-): [() => Promise<void>, boolean, string] {
+  callback: (limit: number, page: number) => Promise<void>,
+): [(limit: number, page: number) => Promise<void>, boolean, string] {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  async function fetching() {
+  async function fetching(...args: NumberPair) {
     try {
       setIsLoading(true);
-      await callback();
+      await callback(...args);
       if (error !== '') {
         setError('');
       }

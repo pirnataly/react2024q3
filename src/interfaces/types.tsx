@@ -26,6 +26,8 @@ export type ResultsProps = {
   textProp: string;
   result: null | SuccessFetchAnswer | 'bad' | undefined;
   isPhotoLoading: boolean;
+  page: number;
+  changePage: (p: number) => void;
 };
 
 export type Photos = {
@@ -65,3 +67,11 @@ export type ResultsType = {
   headingText: string | null;
   total: number;
 };
+
+export type PaginationType = {
+  pages: number;
+  page: number;
+  changePage: (p: number) => void;
+};
+
+export type NumberPair = [number, number];
