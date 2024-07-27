@@ -21,7 +21,6 @@ export default function Pagination({ pages, page, changePage }: PaginationType) 
   const resultArr = pageArray.includes(pages)
     ? pageArray.slice(0, pageArray.findIndex((item) => item === pages) + 1)
     : pageArray;
-  console.log(resultArr, resultArr);
 
   return (
     <div className={pages === 0 ? classes.buttonContainer_none : classes.buttonContainer}>

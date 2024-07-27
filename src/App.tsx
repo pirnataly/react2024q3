@@ -9,11 +9,9 @@ import useFetching from './hooks/useFetching';
 import PhotoService from './API/PhotoService';
 
 export default function App() {
-  console.log('render app');
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  console.log(location, 'location');
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
