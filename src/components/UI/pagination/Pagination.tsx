@@ -10,12 +10,19 @@ import classes from './Pagination.module.css';
 import { PaginationType } from '../../../interfaces/types';
 
 export default function Pagination({ pages, page, changePage }: PaginationType) {
+  const startPage = page < pages ? page : 1;
   const [pageArray, setPagesArray] = useState(
     getPagesArray(
-      getFrom(page),
-      getMaxPageNumber(pages, page === 1 ? 20 : Math.ceil(page / 20) * 20),
+      getFrom(startPage),
+      getMaxPageNumber(pages, startPage === 1 ? 20 : Math.ceil(page / 20) * 20),
     ),
   );
+
+  const resultArr = pageArray.includes(pages)
+    ? pageArray.slice(0, pageArray.findIndex((item) => item === pages) + 1)
+    : pageArray;
+  console.log(resultArr, resultArr);
+
   return (
     <div className={pages === 0 ? classes.buttonContainer_none : classes.buttonContainer}>
       <button
@@ -26,7 +33,7 @@ export default function Pagination({ pages, page, changePage }: PaginationType) 
       >
         Prev
       </button>
-      {pageArray.map((p) => (
+      {resultArr.map((p) => (
         <button
           key={p}
           onClick={() => changePage(p)}

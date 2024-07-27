@@ -1,18 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import SearchBlock from './components/SearchBlock';
 import './styles/App.css';
-import { SuccessFetchAnswer } from './interfaces/types';
-import ResultBlock from './components/ResultBlock';
-import PhotoService from './API/PhotoService';
+import ResultBlock from '@components/ResultBlock';
+import SearchBlock from '@components/SearchBlock';
+import { useNavigate, useLocation } from 'react-router-dom';
 import localStorageGetTextOrSetEmptyString from './service/localStorage';
+import { SuccessFetchAnswer } from './interfaces/types';
 import useFetching from './hooks/useFetching';
+import PhotoService from './API/PhotoService';
 
 export default function App() {
+  console.log('render app');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  console.log(location, 'location');
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
   const [limit] = useState(20);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(params.get('page') ? Number(params.get('page')) : 1);
 
   const [fetchData, isPhotosLoading, errorMessage] = useFetching(
     async (limitNumber, pageNumber) => {
@@ -23,6 +29,7 @@ export default function App() {
   );
 
   function changePage(p: number) {
+    navigate(`/?page=${p}`);
     setPage(p);
     fetchData(limit, p);
   }
@@ -52,6 +59,7 @@ export default function App() {
         localStorage.removeItem('text');
       }
       setHeading(localStorage.getItem('text'));
+      navigate('/');
       setPage(1);
     },
     [text],

@@ -40,9 +40,19 @@
 }
 
 .results-heading {
-  margin-top: 24px;
+  display: block;
+  margin: 24px auto;
   font-size: 20px;
   text-align: center;
+}
+
+.results-subheading {
+  margin: 24px auto;
+  font-size: 18px;
+}
+
+.link {
+  color: black;
 }
 
 .results-card {

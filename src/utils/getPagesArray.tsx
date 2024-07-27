@@ -14,12 +14,6 @@ export function getNextPagesArray(currentPages: number[], total: number) {
     arr = [];
   } else {
     arr = currentPages.map((item) => item + 20);
-    if (arr.includes(total)) {
-      return arr.slice(
-        0,
-        arr.findIndex((item) => item === total),
-      );
-    }
   }
   return arr;
 }

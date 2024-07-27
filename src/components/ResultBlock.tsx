@@ -11,6 +11,16 @@ export default function ResultBlock({ result, isPhotoLoading, page, changePage }
   const photos: [] | Photo[] = resultFromRequest === 'bad' ? [] : resultFromRequest.photos.photo;
   const total = resultFromRequest === 'bad' ? 0 : resultFromRequest.photos.total;
   const pages = resultFromRequest === 'bad' ? 0 : resultFromRequest.photos.pages;
+
+  if (resultFromRequest !== 'bad' && (pages < page || Number.isNaN(page))) {
+    return (
+      <>
+        <h1 className="results-heading">This page does not exist</h1>
+        <h3 className="results-subheading">Choose another page or change text of your request</h3>
+        <Pagination pages={pages} page={page} changePage={changePage} />
+      </>
+    );
+  }
   return isPhotoLoading ? (
     <Loader />
   ) : (
