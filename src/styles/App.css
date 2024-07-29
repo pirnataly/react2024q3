@@ -11,6 +11,10 @@
   margin: 0 auto;
 }
 
+.lock {
+  overflow: hidden;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -18,6 +22,18 @@
   padding: 10px;
   margin-bottom: 20px;
   width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.overlay_hidden {
+  visibility: hidden;
 }
 
 .search-container {

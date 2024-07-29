@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './styles/App.css';
 import ResultBlock from '@components/ResultBlock';
 import SearchBlock from '@components/SearchBlock';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import Modal from '@components/UI/modal/Modal';
 import localStorageGetTextOrSetEmptyString from './service/localStorage';
 import { SuccessFetchAnswer } from './interfaces/types';
 import useFetching from './hooks/useFetching';
@@ -10,13 +11,14 @@ import PhotoService from './API/PhotoService';
 
 export default function App() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
+  const [params, setSearchParams] = useSearchParams({});
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
+  const [modal, setModal] = useState(false);
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
   const [limit] = useState(20);
-  const [page, setPage] = useState(params.get('page') ? Number(params.get('page')) : 1);
+  const page = params.get('page') ? Number(params.get('page')) : 1;
+  document.body.className = modal ? 'lock' : 'body';
 
   const [fetchData, isPhotosLoading, errorMessage] = useFetching(
     async (limitNumber, pageNumber) => {
@@ -26,17 +28,16 @@ export default function App() {
     },
   );
 
-  function changePage(p: number) {
-    navigate(`/?page=${p}`);
-    setPage(p);
-    fetchData(limit, p);
-  }
-
-  const handleChangePage = useCallback((p: number) => changePage(p), [page]);
+  const handleChangePage = useCallback(
+    (p: number) => {
+      setSearchParams({ page: String(p) });
+    },
+    [params],
+  );
 
   useEffect(() => {
     fetchData(limit, page);
-  }, [heading]);
+  }, [heading, params]);
 
   const handleChangeInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,13 +58,27 @@ export default function App() {
         localStorage.removeItem('text');
       }
       setHeading(localStorage.getItem('text'));
-      navigate('/');
-      setPage(1);
+      navigate('/', { state: page });
+      if (params.has('page')) {
+        params.delete('page');
+      }
     },
     [text],
   );
   return (
     <div className="App">
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label="overlay"
+        className={modal ? 'overlay' : 'overlay overlay_hidden'}
+        onClick={() => {
+          setModal(false);
+        }}
+        onKeyDown={() => {
+          setModal(false);
+        }}
+      />
       <SearchBlock
         buttonName="Search"
         textProp={text!}
@@ -79,8 +94,10 @@ export default function App() {
           isPhotoLoading={isPhotosLoading}
           page={page}
           changePage={handleChangePage}
+          showModal={setModal}
         />
       )}
+      <Modal visible={modal} setVisible={setModal} />
     </div>
   );
 }

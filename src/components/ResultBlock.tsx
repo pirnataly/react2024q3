@@ -6,7 +6,13 @@ import Pagination from '@components/UI/pagination/Pagination';
 import { Photo, ResultsProps } from '../interfaces/types';
 import localStorageGetTextOrSetEmptyString from '../service/localStorage';
 
-export default function ResultBlock({ result, isPhotoLoading, page, changePage }: ResultsProps) {
+export default function ResultBlock({
+  result,
+  isPhotoLoading,
+  page,
+  changePage,
+  showModal,
+}: ResultsProps) {
   const resultFromRequest = result ?? 'bad';
   const photos: [] | Photo[] = resultFromRequest === 'bad' ? [] : resultFromRequest.photos.photo;
   const total = resultFromRequest === 'bad' ? 0 : resultFromRequest.photos.total;
@@ -25,7 +31,12 @@ export default function ResultBlock({ result, isPhotoLoading, page, changePage }
     <Loader />
   ) : (
     <>
-      <Results photos={photos} headingText={localStorageGetTextOrSetEmptyString()} total={total} />
+      <Results
+        photos={photos}
+        headingText={localStorageGetTextOrSetEmptyString()}
+        total={total}
+        showModal={showModal}
+      />
       <Pagination pages={pages} page={page} changePage={changePage} />
     </>
   );

@@ -28,6 +28,7 @@ export type ResultsProps = {
   isPhotoLoading: boolean;
   page: number;
   changePage: (p: number) => void;
+  showModal: (arg: boolean) => void;
 };
 
 export type Photos = {
@@ -50,6 +51,7 @@ export type ErrorBoundaryProps = { children?: ReactNode };
 export type CardProps = {
   photos: Photo[];
   headingText: string | null;
+  showModal: (arg: boolean) => void;
 };
 
 export type InputProps = {
@@ -66,6 +68,7 @@ export type ResultsType = {
   photos: [] | Photo[];
   headingText: string | null;
   total: number;
+  showModal: (arg: boolean) => void;
 };
 
 export type PaginationType = {
@@ -75,3 +78,9 @@ export type PaginationType = {
 };
 
 export type NumberPair = [number, number];
+
+export type ModalProps = {
+  children?: ReactNode | undefined;
+  visible: boolean;
+  setVisible: (arg: boolean) => void;
+};

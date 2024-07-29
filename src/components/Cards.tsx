@@ -2,11 +2,24 @@ import React from 'react';
 import { CardProps } from '../interfaces/types';
 
 export default function Cards(props: CardProps) {
-  const { photos, headingText } = props;
+  const { photos, headingText, showModal } = props;
   return (
-    <div className="cards-container">
+    <div
+      role="button"
+      tabIndex={0}
+      className="cards-container"
+      onClick={() => showModal(true)}
+      onKeyDown={() => showModal(true)}
+    >
       {photos.map((post) => (
-        <div className="results-card" key={post.id}>
+        <div
+          className="results-card"
+          key={post.id}
+          role="button"
+          tabIndex={0}
+          onKeyDown={() => {}}
+          onClick={() => {}}
+        >
           <div className="results-card__image">
             <img src={post.url_l} className="results-card__image" alt={headingText ?? 'photo'} />
           </div>
