@@ -13,15 +13,16 @@ export default function App() {
   const navigate = useNavigate();
   const [params, setSearchParams] = useSearchParams({});
   const [text, setText] = useState(localStorageGetTextOrSetEmptyString());
-  const [modal, setModal] = useState(false);
   const [heading, setHeading] = useState(localStorageGetTextOrSetEmptyString());
   const [config, setConfig] = useState<null | SuccessFetchAnswer | 'bad' | undefined>(null);
   const [limit] = useState(20);
   const page = params.get('page') ? Number(params.get('page')) : 1;
+  const id: string | null = params.get('detail') ? params.get('detail') : null;
+  const [modal, setModal] = useState(!!id);
   document.body.className = modal ? 'lock' : 'body';
 
   const [fetchData, isPhotosLoading, errorMessage] = useFetching(
-    async (limitNumber, pageNumber) => {
+    async (limitNumber: number, pageNumber: number) => {
       const fetchArg = localStorage.getItem('text') ? localStorage.getItem('text') : 'photo';
       const data = await PhotoService.fetchResults(fetchArg, limitNumber, pageNumber);
       setConfig(data);
@@ -36,8 +37,10 @@ export default function App() {
   );
 
   useEffect(() => {
-    fetchData(limit, page);
-  }, [heading, params]);
+    if (typeof fetchData === 'function') {
+      fetchData(limit, page);
+    }
+  }, [heading, params.get('page')]);
 
   const handleChangeInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +77,10 @@ export default function App() {
         className={modal ? 'overlay' : 'overlay overlay_hidden'}
         onClick={() => {
           setModal(false);
+          if (params.has('detail')) {
+            params.delete('detail');
+          }
+          setSearchParams(new URLSearchParams(params));
         }}
         onKeyDown={() => {
           setModal(false);
@@ -95,9 +102,17 @@ export default function App() {
           page={page}
           changePage={handleChangePage}
           showModal={setModal}
+          setSearchParams={setSearchParams}
+          params={params}
         />
       )}
-      <Modal visible={modal} setVisible={setModal} />
+      <Modal
+        visible={modal}
+        setVisible={setModal}
+        setSearchParams={setSearchParams}
+        params={params}
+        id={id}
+      />
     </div>
   );
 }

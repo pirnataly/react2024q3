@@ -12,6 +12,8 @@ export default function ResultBlock({
   page,
   changePage,
   showModal,
+  setSearchParams,
+  params,
 }: ResultsProps) {
   const resultFromRequest = result ?? 'bad';
   const photos: [] | Photo[] = resultFromRequest === 'bad' ? [] : resultFromRequest.photos.photo;
@@ -36,6 +38,8 @@ export default function ResultBlock({
         headingText={localStorageGetTextOrSetEmptyString()}
         total={total}
         showModal={showModal}
+        setSearchParams={setSearchParams}
+        params={params}
       />
       <Pagination pages={pages} page={page} changePage={changePage} />
     </>

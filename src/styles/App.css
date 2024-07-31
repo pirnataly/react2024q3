@@ -85,6 +85,7 @@
 
 @media (hover: hover) {
   .results-card:hover {
+    cursor: pointer;
     opacity: 80%;
   }
 }

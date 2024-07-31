@@ -1,8 +1,15 @@
 import React from 'react';
+import ModalContent from '@components/UI/modal/ModalContent';
 import classes from './Modal.module.css';
 import { ModalProps } from '../../../interfaces/types';
 
-export default function Modal({ children, visible, setVisible }: ModalProps) {
+export default function Modal({
+  visible,
+  setVisible,
+  setSearchParams,
+  id,
+  params,
+}: Partial<ModalProps>) {
   const mainClasses = [classes.modal];
   if (visible) {
     mainClasses.push(classes.modal_active);
@@ -10,10 +17,26 @@ export default function Modal({ children, visible, setVisible }: ModalProps) {
 
   return (
     <div className={mainClasses.join(' ')}>
-      <button type="button" className={classes.closeButton} onClick={() => setVisible(false)}>
+      <button
+        type="button"
+        className={classes.closeButton}
+        onClick={() => {
+          if (setVisible) {
+            setVisible(false);
+          }
+          if (params) {
+            if (params.get('detail')) {
+              params.delete('detail');
+            }
+          }
+          if (setSearchParams) {
+            setSearchParams(new URLSearchParams(params));
+          }
+        }}
+      >
         Close
       </button>
-      <div className={classes.modalContent}>{children}</div>
+      <ModalContent id={id ?? null} />
     </div>
   );
 }
